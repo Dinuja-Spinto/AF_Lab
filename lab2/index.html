@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AF Lab_2~IT19016894</title>
+</head>
+<body>
+<h2>Promises/Asynchronous and callbacks</h2>
+<script type="text/javascript">
+
+    /*let promise = new Promise(function(resolve, reject){
+        resolve();
+        reject();
+    });*/
+
+    /*function getValue(callback){
+        let value=0;
+        //resolve is for success
+        //reject is fro error
+        return new Promise(function (resolve,reject){
+            setTimeout(function(){
+                value=10;
+                resolve(value);
+            },1000);
+        });
+
+    }*/
+    //Arrow function
+    function getValue(callback){
+        let value=0;
+        //resolve is for success
+        //reject is fro error
+        return new Promise( (resolve,reject)=>{
+            setTimeout(function(){
+                value=10;
+                resolve(value);
+            },1000);
+        });
+
+    }
+
+    /*function getValue(callback){
+        let value=0;
+
+        setTimeout(function(){
+            value=10;
+            callback(value);
+        },1000);
+        //return value;
+    }*/
+
+    /*function getNewValue(value,callback){
+        setTimeout(function(){
+            callback(value*100);
+        },1000)
+    }*/
+
+    function getNewValue(value,callback){
+        //return new Promise(function (resolve,reject) {
+        return new Promise( (resolve,reject)=> {//arrow function
+            setTimeout(function () {
+
+                resolve(value*100);
+            }, 1000);
+        });
+    }
+    //console.log(getValue());
+    /*getValue(function(value){
+        console.log(value);
+    })*/
+    /*getValue(function(value){
+        getNewValue(value,function(newValue){
+            console.log(newValue);
+        })
+    })*/
+
+    function setValue(value){
+        return value+1999;
+    }
+
+    async function print(){
+        let value = await getValue();
+        value = await getNewValue(value);
+        value = setValue(value);
+        console.log(value);
+    }
+
+    /*print().then(function(value){
+        console.log(value);
+    });*/
+    //print().then(value => console.log(value));
+    print().then(value => setValue(value)).then(value=>console.log(value));
+
+    const persons= {
+        organization:'Science',
+        people:['Jane,John'],
+        print:function(){
+            this.people.forEach(function (value){
+                console.log(value,this.organization);
+            });
+        }
+    };
+    persons.print();
+    /*getValue().then(function (value){
+        return getNewValue(value)
+    }).then(function (value){
+        //console.log(value);
+        return setValue(value);
+    }).then(function(value){
+        console.log(value);
+    });*/
+
+</script>
+</body>
+</html>
